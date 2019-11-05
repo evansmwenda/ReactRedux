@@ -17,26 +17,63 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {createStore} from 'redux'
-import {Provider} from 'react-redux'
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer ,StackNavigator, addNavigationHelpers} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { Provider, connect } from "react-redux";
 
-import DetailsScreen from './src/DetailsScreen';
-import CounterApp    from './src/CounterApp'
+import Routes from "./src/config/routes";
+import getStore from "./src/store";
 
-const RootStack = createStackNavigator(
-  {
-    Counter: CounterApp ,
-    Details: DetailsScreen,
-  },
-  {
-    initialRouteName: 'Counter',
-  });
+const AppNavigator = StackNavigator(Routes);
 
-const AppContainer = createAppContainer(RootStack);
+const navReducer = (state, action) => {
+  const newState = AppNavigator.router.getStateForAction(action, state);
+  return newState || state;
+};
 
-export default class App extends React.Component {
+connect(state => ({
+  nav: state.nav
+}))
+
+class AppWithNavigationState extends Component {
   render() {
-    return <AppContainer />;
+      return (
+          <AppNavigator
+              navigation={addNavigationHelpers({
+                  dispatch: this.props.dispatch,
+                  state: this.props.nav
+              })}
+          />
+      );
   }
 }
+
+const store = getStore(navReducer);
+
+export default function App() {
+  return (
+      <Provider store={store}>
+          <AppWithNavigationState />
+      </Provider>
+  );
+}
+
+
+
+
+// const RootStack = createStackNavigator(
+//   {
+//     Counter: CounterApp ,
+//     Details: DetailsScreen,
+//   },
+//   {
+//     initialRouteName: 'Counter',
+//   });
+
+// const AppContainer = createAppContainer(RootStack);
+
+// export default class App extends React.Component {
+//   render() {
+//     return <AppContainer />;
+//   }
+// }
