@@ -13,8 +13,16 @@ import { connect } from 'react-redux';
 
 class DetailsScreen extends Component {
   render() {
+    const { navigation } = this.props;
+
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>
+          userId: {JSON.stringify(navigation.getParam('user_id', 'NO-ID'))}
+        </Text>
+        <Text>
+          AnotherParam: {JSON.stringify(navigation.getParam('otherParam', 'No - Param'))}
+        </Text>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
             <Text style={{fontSize:20}}>Go BACK</Text>
           </TouchableOpacity>  
@@ -27,6 +35,10 @@ class DetailsScreen extends Component {
 
           <TouchableOpacity style={{backgroundColor:'green',width:200,height:50,margin:20,}} onPress={() => this.props.doDecrement()}>
             <Text style={{fontSize:20}}>Decrement</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Extras')}>
+            <Text style={{fontSize:20}}>Go to EXTRAS</Text>
           </TouchableOpacity>
       </View>
     );

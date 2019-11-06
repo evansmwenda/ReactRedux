@@ -17,7 +17,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-class CounterApp extends Component {
+class ExtraScreen extends Component {
   constructor(props){
     super(props)
   }
@@ -25,11 +25,8 @@ class CounterApp extends Component {
   render(){
     return (
       <View style={styles.mainContainer}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Details',{
-          user_id:999,
-          otherParam:"this is another parameter",
-        })}>
-            <Text style={{fontSize:20}}>Go to details</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.popToTop()}>
+            <Text style={{fontSize:20}}>Go To TOP</Text>
         </TouchableOpacity>
       </View>
 
@@ -48,4 +45,4 @@ const styles = StyleSheet.create({
 
 
 
-export default CounterApp;
+export default ExtraScreen;
