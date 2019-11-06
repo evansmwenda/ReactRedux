@@ -7,12 +7,36 @@ import Extras   from './components/ExtraScreen';
  
 const Navigator = createStackNavigator(
     {
-        Home: Home,
-        Details: Settings,
-        Extras: Extras,
+        Home: {
+            screen:Home,
+            navigationOptions:{
+                title:"H0ME"
+            }
+        },
+        Details: {
+            screen:Settings,
+            navigationOptions:{
+                title:"Details",
+            }
+        },
+        Extras:  {
+            screen:Extras,
+            navigationOptions:{
+                title:"EXTRAS"
+            }
+        },
     }, 
     {
         initialRouteName: 'Home',
+        defaultNavigationOptions:{
+            headerStyle: {
+                backgroundColor: '#f4511e',
+              },
+              headerTintColor: '#BDBDBD',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+        }
         // headerMode: 'none'
     }
 );

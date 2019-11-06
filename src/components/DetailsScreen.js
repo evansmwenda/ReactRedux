@@ -12,6 +12,11 @@ import { connect } from 'react-redux';
 
 
 class DetailsScreen extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: JSON.stringify(navigation.getParam('otherParam', 'No - Param'))
+    };
+  };
   render() {
     const { navigation } = this.props;
 
