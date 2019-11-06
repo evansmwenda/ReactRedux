@@ -1,5 +1,5 @@
-import DetailsScreen from '../DetailsScreen';
-import CounterApp    from '../CounterApp'
+import DetailsScreen from '../components/DetailsScreen';
+import CounterApp    from '../components/CounterApp'
 
 const Routes = {
     Counter: CounterApp ,

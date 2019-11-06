@@ -17,20 +17,17 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {connect} from 'react-redux'
-import DetailsScreen from './DetailsScreen';
-import { StackNavigator } from "react-navigation";
-
-
 class CounterApp extends Component {
-
+  constructor(props){
+    super(props)
+  }
+  
   render(){
     return (
       <View style={styles.mainContainer}>
-        
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Details')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')}>
             <Text style={{fontSize:20}}>Go to details</Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
 
     );

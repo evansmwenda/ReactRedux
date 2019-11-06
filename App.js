@@ -1,79 +1,30 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  TouchableOpacity,
-} from 'react-native';
-import {createStore} from 'redux'
-import { createAppContainer ,StackNavigator, addNavigationHelpers} from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { Provider, connect } from "react-redux";
-
-import Routes from "./src/config/routes";
-import getStore from "./src/store";
-
-const AppNavigator = StackNavigator(Routes);
-
-const navReducer = (state, action) => {
-  const newState = AppNavigator.router.getStateForAction(action, state);
-  return newState || state;
-};
-
-connect(state => ({
-  nav: state.nav
-}))
-
-class AppWithNavigationState extends Component {
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import Navigation from './src/Navigator';
+ 
+const initialState = {
+  counter: 0
+}
+ 
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return {...state, counter: state.counter + 1};
+    case 'DECREMENT':
+      return {...state, counter: state.counter - 1};
+  }
+  return state;
+}
+ 
+const store = createStore(reducer);
+ 
+export default class App extends Component {
   render() {
-      return (
-          <AppNavigator
-              navigation={addNavigationHelpers({
-                  dispatch: this.props.dispatch,
-                  state: this.props.nav
-              })}
-          />
-      );
+    return (
+      <Provider store={store}>
+        <Navigation/>
+      </Provider>
+    );
   }
 }
-
-const store = getStore(navReducer);
-
-export default function App() {
-  return (
-      <Provider store={store}>
-          <AppWithNavigationState />
-      </Provider>
-  );
-}
-
-
-
-
-// const RootStack = createStackNavigator(
-//   {
-//     Counter: CounterApp ,
-//     Details: DetailsScreen,
-//   },
-//   {
-//     initialRouteName: 'Counter',
-//   });
-
-// const AppContainer = createAppContainer(RootStack);
-
-// export default class App extends React.Component {
-//   render() {
-//     return <AppContainer />;
-//   }
-// }
